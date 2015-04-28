@@ -10,3 +10,11 @@ logs
 /nbproject/private/
 .pc
 /tmp
+.AppleDouble
+**/.AppleDouble
+**/**/.AppleDouble
+**/**/**/.AppleDouble
+**/**/**/**/.AppleDouble
+**/**/**/**/**/.AppleDouble
+.DS_Store
+config/*.php
