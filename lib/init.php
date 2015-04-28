@@ -158,7 +158,7 @@ set_memory_limit($results['memory_limit']);
 // If we want a session
 if (!defined('NO_SESSION') && AmpConfig::get('use_auth')) {
     /* Verify their session */
-    if (!Session::exists('interface', $_COOKIE[AmpConfig::get('session_name')])  && $_SERVER['SCRIPT_NAME'] != '/ampache/admin/catalog.php') {
+    if (!Session::exists('interface', $_COOKIE[AmpConfig::get('session_name')]) && $_REQUEST['action'] != 'full_service') {
         if (!Session::auth_remember()) {
             Auth::logout($_COOKIE[AmpConfig::get('session_name')]);
             exit;
@@ -172,7 +172,7 @@ if (!defined('NO_SESSION') && AmpConfig::get('use_auth')) {
     $GLOBALS['user'] = User::get_from_username($_SESSION['userdata']['username']);
 
     /* If the user ID doesn't exist deny them */
-    if (!$GLOBALS['user']->id && !AmpConfig::get('demo_mode') && $_SERVER['SCRIPT_NAME'] != '/ampache/admin/catalog.php') {
+    if (!$GLOBALS['user']->id && !AmpConfig::get('demo_mode') && $_REQUEST['action'] != 'full_service') {
         Auth::logout(session_id());
         exit;
     }
