@@ -234,7 +234,7 @@ switch ($_REQUEST['action']) {
                 $button = $_REQUEST['button'];
             break;
             case 'admin':
-                if (Access::check('interface','100')) { $button = $_REQUEST['button']; } else { exit; }
+                if (Access::check('interface','99')) { $button = $_REQUEST['button']; } else { exit; }
             break;
             default:
                 exit;

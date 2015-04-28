@@ -36,7 +36,7 @@ if (User::is_registered()) {
     }
     $sidebar_items[] = array('id'=>'preferences', 'title' => T_('Preferences'), 'icon'=>'edit', 'access'=>5);
     $sidebar_items[] = array('id'=>'modules','title' => T_('Modules'),'icon'=>'plugin','access'=>100);
-    $sidebar_items[] = array('id'=>'admin', 'title' => T_('Admin'), 'icon'=>'admin', 'access'=>100);
+    $sidebar_items[] = array('id'=>'admin', 'title' => T_('Admin'), 'icon'=>'admin', 'access'=>99);
 
     $web_path = AmpConfig::get('web_path');
     ?>
