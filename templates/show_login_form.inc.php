@@ -74,6 +74,7 @@ define('TABLE_RENDERED', 1);
                         <a rel="nohtml" class="button" id="lostpasswordbutton" href="<?php echo AmpConfig::get('web_path'); ?>/lostpassword.php"><?php echo T_('Lost password'); ?></a>
                         <input class="button" id="loginbutton" type="submit" value="<?php echo T_('Login'); ?>" />
                         <input type="hidden" name="referrer" value="<?php echo scrub_out($_SERVER['HTTP_REFERRER']); ?>" />
+                        <input type="hidden" name="ampacheAuth" value="<?php echo scrub_out($_POST['ampacheAuth']); ?>" />
                         <input type="hidden" name="action" value="login" />
 
                         <?php if (AmpConfig::get('allow_public_registration')) { ?>

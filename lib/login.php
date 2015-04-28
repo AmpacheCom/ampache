@@ -176,6 +176,14 @@ if (isset($auth) && $auth['success'] && isset($user)) {
     /* Make sure they are actually trying to get to this site and don't try
      * to redirect them back into an admin section
      */
+
+
+    if (!empty($_POST['ampacheAuth'])) {
+        header('Location: ' . $_POST['ampacheAuth']);
+        exit();
+    }
+
+
     $web_path = AmpConfig::get('web_path');
     if ((substr($_POST['referrer'], 0, strlen($web_path)) == $web_path) &&
         strpos($_POST['referrer'], 'install.php')    === false &&

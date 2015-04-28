@@ -34,7 +34,8 @@ $load_time_begin = microtime(true);
 
 $ampache_path = dirname(__FILE__);
 $prefix = realpath($ampache_path . "/../");
-$configfile = $prefix . '/config/ampache.cfg.php';
+//$configfile = $prefix . '/config/ampache.cfg.php';
+$configfile = $prefix . '/config/'.$_SERVER['SERVER_NAME'].'-ampache.cfg.php';
 
 if (file_exists($prefix . '/.maintenance')) {
     require_once($prefix . '/.maintenance');
