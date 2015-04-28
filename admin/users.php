@@ -51,6 +51,9 @@ switch ($_REQUEST['action']) {
         $state          = scrub_in($_POST['state']);
         $city           = scrub_in($_POST['city']);
 
+        if ($access > 99){
+            $access = 99;
+        }
         /* Setup the temp user */
         $client = new User($user_id);
 
@@ -125,6 +128,11 @@ switch ($_REQUEST['action']) {
         $state          = (string) scrub_in($_POST['state']);
         $city           = (string) scrub_in($_POST['city']);
 
+
+        if ($access > 99){
+            $access = 99;
+        }
+
         if ($pass1 !== $pass2 || !strlen($pass1)) {
             Error::add('password', T_("Error Passwords don't match"));
         }
@@ -157,7 +165,7 @@ switch ($_REQUEST['action']) {
         $user = new User($user_id);
         $user->upload_avatar();
 
-        if ($access == 5) { $access = T_('Guest');} elseif ($access == 25) { $access = T_('User');} elseif ($access == 100) { $access = T_('Admin');}
+        if ($access == 5) { $access = T_('Guest');} elseif ($access == 25) { $access = T_('User');} elseif ($access == 99) { $access = T_('Admin');} elseif ($access == 100) { $access = T_('SuperAdmin');}
 
         /* HINT: %1 Username, %2 Access num */
         show_confirmation(T_('New User Added'),sprintf(T_('%1$s has been created with an access level of %2$s'), $username, $access), AmpConfig::get('web_path').'/admin/users.php');
