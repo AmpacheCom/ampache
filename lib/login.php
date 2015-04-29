@@ -31,7 +31,7 @@ Preference::init();
  * even want them to be able to get to the login
  * page if they aren't in the ACL
  */
-if (AmpConfig::get('access_control')) {
+if (AmpConfig::get('access_control') && 0) {
     if (!Access::check_network('interface', '', '5')) {
         debug_event('UI::access_denied', 'Access Denied:' . $_SERVER['REMOTE_ADDR'] . ' is not in the Interface Access list', '3');
         UI::access_denied();
