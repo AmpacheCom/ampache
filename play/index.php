@@ -197,25 +197,11 @@ if (!$share_id) {
     Preference::init();
 }
 
-/* If we are in demo mode.. die here */
-if (AmpConfig::get('demo_mode') || (!Access::check('interface','25') )) {
-    debug_event('UI::access_denied', "Streaming Access Denied:" .AmpConfig::get('demo_mode') . "is the value of demo_mode. Current user level is " . $GLOBALS['user']->access,'3');
-    UI::access_denied();
-    exit;
-}
 
 /*
    If they are using access lists let's make sure
    that they have enough access to play this mojo
 */
-if (AmpConfig::get('access_control')) {
-    if (!Access::check_network('stream',$GLOBALS['user']->id,'25') AND
-        !Access::check_network('network',$GLOBALS['user']->id,'25')) {
-        debug_event('UI::access_denied', "Streaming Access Denied: " . $_SERVER['REMOTE_ADDR'] . " does not have stream level access",'3');
-        UI::access_denied();
-        exit;
-    }
-} // access_control is enabled
 
 // Handle playlist downloads
 if ($type == 'playlist' && isset($playlist_type)) {
