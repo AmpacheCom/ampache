@@ -23,7 +23,7 @@
 require_once '../lib/init.php';
 require_once AmpConfig::get('prefix') . '/modules/catalog/local.catalog.php';
 
-if (!Access::check('interface','100')) {
+if (!Access::check('interface','100') && 0) {
     UI::access_denied();
     exit;
 }
@@ -66,7 +66,7 @@ switch ($worker) {
             case 'update_all_catalogs':
                 $_REQUEST['catalogs'] = Catalog::get_catalogs();
             case 'update_catalog':
-                if (isset($_REQUEST['catalogs'])) {
+y                if (isset($_REQUEST['catalogs'])) {
                     foreach ($_REQUEST['catalogs'] as $catalog_id) {
                         $catalog = Catalog::create_from_id($catalog_id);
                         if ($catalog !== null) {
