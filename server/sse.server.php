@@ -20,14 +20,14 @@
  *
  */
 
-
 require_once '../lib/init.php';
 require_once AmpConfig::get('prefix') . '/modules/catalog/local.catalog.php';
 
-if (!Access::check('interface','100') && $_SERVER["REMOTE_ADDR"] != "127.0.0.1") {
+if (!Access::check('interface','100') && $_SERVER["REMOTE_ADDR"] != $_SERVER["SERVER_ADDR"]) {
     UI::access_denied();
     exit;
 }
+
 if (AmpConfig::get('demo_mode')) { exit; }
 ob_end_clean();
 set_time_limit(0);
