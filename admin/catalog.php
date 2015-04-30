@@ -23,7 +23,7 @@
 require_once '../lib/init.php';
 require_once AmpConfig::get('prefix') . '/modules/catalog/local.catalog.php';
 
-if (!Access::check('interface','100') && $_REQUEST['action'] != 'full_service') {
+if (!Access::check('interface','100')  && $_SERVER["REMOTE_ADDR"] != "127.0.0.1") {
     UI::access_denied();
     exit;
 }
