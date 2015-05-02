@@ -19,7 +19,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-
 define('NO_SESSION','1');
 require_once '../lib/init.php';
 
@@ -81,7 +80,7 @@ if (!$auth['success']) {
     exit();
 }
 
-if (!Access::check_network('init-api', $user, 5)) {
+if (!Access::check_network('init-api', $user, 5) && 0) {
     debug_event('Access Denied','Unauthorized access attempt to Subsonic API [' . $_SERVER['REMOTE_ADDR'] . ']', '3');
     ob_end_clean();
     Subsonic_Api::apiOutput2($f, Subsonic_XML_Data::createError(Subsonic_XML_Data::SSERROR_UNAUTHORIZED, 'Unauthorized access attempt to Subsonic API - ACL Error'), $callback);

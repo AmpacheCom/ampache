@@ -450,7 +450,7 @@ class Stream
             $web_path = AmpConfig::get('web_path');
         }
 
-        if (AmpConfig::get('force_http_play')) {
+        if (AmpConfig::get('force_http_play') && 0) {
             $web_path = str_replace("https://", "http://",$web_path);
         }
 
@@ -462,7 +462,6 @@ class Stream
                 $web_path = str_replace(AmpConfig::get('http_host'), AmpConfig::get('http_host') . ':' . $http_port, $web_path);
             }
         }
-
         $url = $web_path . "/play/index.php?$session_string";
 
         return $url;
