@@ -61,13 +61,6 @@ $username =
     ? $_REQUEST['user']
     : Session::username($_REQUEST['auth']);
 
-if (!Access::check_network('init-api', $username, 5)) {
-        debug_event('Access Denied','Unauthorized access attempt to API [' . $_SERVER['REMOTE_ADDR'] . ']', '3');
-        ob_end_clean();
-        echo XML_Data::error('403', T_('Unauthorized access attempt to API - ACL Error'));
-        exit();
-}
-
 if ($_REQUEST['action'] != 'handshake' AND $_REQUEST['action'] != 'ping') {
         Session::extend($_REQUEST['auth']);
         $GLOBALS['user'] = User::get_from_username($username);
