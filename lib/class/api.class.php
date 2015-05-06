@@ -152,14 +152,14 @@ class Api
                 $user_id = $client->id;
             }
         } else {
-            $client = User::get_from_username($username);
+	     $client = User::get_from_username($username);
             $user_id = $client->id;
         }
 
         // Log this attempt
         debug_event('API', "Login Attempt, IP:$ip Time: $timestamp User:$username ($user_id) Auth:$passphrase", 1);
 
-        if ($user_id > 0 && Access::check_network('api', $user_id, 5, $ip)) {
+        if ($user_id > 0) {
 
             // Authentication with user/password, we still need to check the password
             if ($username) {
