@@ -37,8 +37,11 @@ $prefix = realpath($ampache_path . "/../");
 //$configfile = $prefix . '/config/ampache.cfg.php';
 $configfile = $prefix . '/config/'.$_SERVER['SERVER_NAME'].'-ampache.cfg.php';
 
-if (file_exists($prefix . '/.maintenance')) {
-    require_once($prefix . '/.maintenance');
+// We still allow scripts to run (it could be the purpose of the maintenance)
+if (!defined('CLI')) {
+    if (file_exists($prefix . '/.maintenance')) {
+        require_once($prefix . '/.maintenance');
+    }
 }
 
 require_once $prefix . '/lib/general.lib.php';

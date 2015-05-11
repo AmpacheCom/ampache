@@ -124,6 +124,12 @@ class PrivateMsg extends database_object
         return Dba::write($sql, array($read ? 1 : 0, $this->id));
     }
 
+    public function delete()
+    {
+        $sql = "DELETE FROM `user_pvmsg` WHERE `id` = ?";
+        return Dba::write($sql, array($this->id));
+    }
+
     public static function create(array $data)
     {
         $subject = trim(strip_tags($data['subject']));
@@ -140,30 +146,29 @@ class PrivateMsg extends database_object
 
         if (!Error::occurred()) {
             $from_user = $data['from_user'] ?: $GLOBALS['user']->id;
+            $creation_date = $data['creation_date'] ?: time();
+            $is_read = $data['is_read'] ?: 0;
             $sql = "INSERT INTO `user_pvmsg` (`subject`, `message`, `from_user`, `to_user`, `creation_date`, `is_read`) " .
                 "VALUES (?, ?, ?, ?, ?, ?)";
-            if (Dba::write($sql, array($subject, $message, $from_user, $to_user->id, time(), '0'))) {
+            if (Dba::write($sql, array($subject, $message, $from_user, $to_user->id, $creation_date, $is_read))) {
                 $insert_id = Dba::insert_id();
 
                 // Never send email in case of user impersonation
                 if (!isset($data['from_user']) && $insert_id) {
                     if (Preference::get_by_user($to_user->id, 'notify_email')) {
                         if (!empty($to_user->email)) {
-                            $libitem->format();
-                            $domain = parse_url(AmpConfig::get('web_path'), PHP_URL_HOST);
-
                             $mailer = new Mailer();
                             $mailer->set_default_sender();
                             $mailer->recipient = $to_user->email;
                             $mailer->recipient_name = $to_user->fullname;
-                            $mailer->subject = "[" . $domain . "] " . $subject;
+                            $mailer->subject = "[" . T_('Private Message') . "] " . $subject;
                             $mailer->message = sprintf(T_("You just received a new private message from %s.\n\n
         ----------------------
         %s
         ----------------------
 
         %s
-        "), $GLOBALS['user']->fullname, $message, AmpConfig::get('web_path') . "/shout.php?action=show&pvmsg_id=" . $insert_id);
+        "), $GLOBALS['user']->fullname, $message, AmpConfig::get('web_path') . "/pvmsg.php?action=show&pvmsg_id=" . $insert_id);
                             $mailer->send();
                         }
                     }
