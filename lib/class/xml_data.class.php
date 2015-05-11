@@ -418,7 +418,7 @@ class XML_Data
      * This returns an xml document from an array of song ids.
      * (Spiffy isn't it!)
      */
-    public static function songs($songs)
+    public static function songs($songs, $fromPlaylist='')
     {
         if (count($songs) > self::$limit OR self::$offset > 0) {
             $songs = array_slice($songs, self::$offset, self::$limit);
@@ -435,6 +435,15 @@ class XML_Data
             // If the song id is invalid/null
             if (!$song->id) { continue; }
 
+	    $playlistTrack = "";
+	    if ($fromPlaylist != ''){
+		foreach ($fromPlaylist as $playlistData){
+			if ($playlistData["object_id"] == $song->id){
+				$playlistTrack ="\t<playlisttrack>" . $playlistData["track"] . "</playlisttrack>\n";
+			}
+		}
+	    }
+
             $tag_string = self::tags_string(Tag::get_top_tags('song', $song_id));
             $rating = new Rating($song_id, 'song');
             $art_url = Art::url($song->album, 'album', $_REQUEST['auth']);
@@ -450,6 +459,7 @@ class XML_Data
                 $tag_string .
                 "\t<filename><![CDATA[" . $song->file . "]]></filename>\n" .
                 "\t<track>" . $song->track . "</track>\n" .
+                $playlistTrack  .
                 "\t<time>" . $song->time . "</time>\n" .
                 "\t<year>" . $song->year . "</year>\n" .
                 "\t<bitrate>" . $song->bitrate . "</bitrate>\n".

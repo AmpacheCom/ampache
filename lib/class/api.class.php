@@ -620,14 +620,14 @@ class Api
         $songs = array();
         foreach ($items as $object) {
             if ($object['object_type'] == 'song') {
-                $songs[] = $object['object_id'];
+                $songs[] =  $object['object_id'];
             }
         } // end foreach
 
         XML_Data::set_offset($input['offset']);
         XML_Data::set_limit($input['limit']);
         ob_end_clean();
-        echo XML_Data::songs($songs);
+        echo XML_Data::songs($songs, $items);
 
     } // playlist_songs
 
@@ -693,7 +693,7 @@ class Api
     {
         ob_end_clean();
         $playlist = new Playlist($input['filter']);
-        $track = new Playlist($input['track']);
+        $track = scrub_in($input['track']);
         if (!$playlist->has_access()) {
             echo XML_Data::error('401', T_('Access denied to this playlist.'));
         } else {
