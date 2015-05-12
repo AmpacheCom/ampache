@@ -38,6 +38,7 @@
             <li id="sb_home_browse_music_tags"><a href="<?php echo $web_path; ?>/browse.php?action=tag"><?php echo T_('Tag Cloud'); ?></a></li>
             <li id="sb_home_browse_music_playlist"><a href="<?php echo $web_path; ?>/browse.php?action=playlist"><?php echo T_('Playlists'); ?></a></li>
             <li id="sb_home_browse_music_smartPlaylist"><a href="<?php echo $web_path; ?>/browse.php?action=smartplaylist"><?php echo T_('Smart Playlists'); ?></a></li>
+            <li id="sb_home_browse_music_musicManager"><a href="<?php echo $web_path; ?>/musicmanager" target="_blank"><?php echo T_('Upload / Manage Music'); ?></a></li>
             <?php if (AmpConfig::get('channel')) { ?>
             <li id="sb_home_browse_music_channel"><a href="<?php echo $web_path; ?>/browse.php?action=channel"><?php echo T_('Channels'); ?></a></li>
             <?php } ?>
@@ -47,22 +48,8 @@
             <?php if (AmpConfig::get('live_stream')) { ?>
             <li id="sb_home_browse_music_radioStation"><a href="<?php echo $web_path; ?>/browse.php?action=live_stream"><?php echo T_('Radio Stations'); ?></a></li>
             <?php } ?>
-            <?php if (AmpConfig::get('allow_upload') && Access::check('interface', '25')) { ?>
-            <li id="sb_home_browse_music_upload"><a href="<?php echo $web_path; ?>/upload.php"><?php echo T_('Upload'); ?></a></li>
-            <?php } ?>
         </ul>
     </li>
-    <?php if (AmpConfig::get('allow_video')) { ?>
-        <li><h4 class="header"><span class="sidebar-header-title"><?php echo T_('Browse Video'); ?></span><img src="<?php echo AmpConfig::get('web_path') . AmpConfig::get('theme_path'); ?>/images/icons/icon_all.png" class="header-img <?php echo isset($_COOKIE['sb_home_browse_video']) ? $_COOKIE['sb_home_browse_video'] : 'expanded'; ?>" id="browse_video" lt="<?php echo T_('Expand/Collapse'); ?>" title="<?php echo T_('Expand/Collapse'); ?>" /></h4>
-            <ul class="sb3" id="sb_home_browse_video">
-                <li id="sb_home_browse_video_clip"><a href="<?php echo $web_path; ?>/browse.php?action=clip"><?php echo T_('Music Clips'); ?></a></li>
-                <li id="sb_home_browse_video_tvShow"><a href="<?php echo $web_path; ?>/browse.php?action=tvshow"><?php echo T_('TV Shows'); ?></a></li>
-                <li id="sb_home_browse_video_movie"><a href="<?php echo $web_path; ?>/browse.php?action=movie"><?php echo T_('Movies'); ?></a></li>
-                <li id="sb_home_browse_video_video"><a href="<?php echo $web_path; ?>/browse.php?action=personal_video"><?php echo T_('Personal Videos'); ?></a></li>
-                <li id="sb_home_browse_video_tagsVideo"><a href="<?php echo $web_path; ?>/browse.php?action=tag&type=video"><?php echo T_('Tag Cloud'); ?></a></li>
-            </ul>
-        </li>
-    <?php } ?>
     <?php Ajax::start_container('browse_filters'); ?>
     <?php Ajax::end_container(); ?>
     <?php if (Access::check('interface', '25')) { ?>
@@ -120,9 +107,6 @@
                 <?php if (AmpConfig::get('allow_upload')) { ?>
                 <li id="sb_home_info_upload"><a href="<?php echo $web_path; ?>/stats.php?action=upload"><?php echo T_('Uploads'); ?></a></li>
                 <?php } ?>
-                <?php if (Access::check('interface','50')) { ?>
-                    <li id="sb_home_info_statistic"><a href="<?php echo $web_path; ?>/stats.php?action=show"><?php echo T_('Statistics'); ?></a></li>
-                <?php } ?>
             <?php } ?>
         </ul>
     </li>
@@ -133,9 +117,6 @@
           <li id="sb_home_search_album"><a href="<?php echo $web_path; ?>/search.php?type=album"><?php echo T_('Albums'); ?></a></li>
           <li id="sb_home_search_artist"><a href="<?php echo $web_path; ?>/search.php?type=artist"><?php echo T_('Artists'); ?></a></li>
           <li id="sb_home_search_playlist"><a href="<?php echo $web_path; ?>/search.php?type=playlist"><?php echo T_('Playlists'); ?></a></li>
-          <?php if (AmpConfig::get('allow_video')) { ?>
-            <li id="sb_home_search_video"><a href="<?php echo $web_path; ?>/search.php?type=video"><?php echo T_('Videos'); ?></a></li>
-          <?php } ?>
         </ul>
     </li>
 </ul>
