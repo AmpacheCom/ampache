@@ -444,6 +444,15 @@ class XML_Data
                 }
             }
 
+	    $playlistTrack = "";
+	    if ($fromPlaylist != ''){
+		foreach ($fromPlaylist as $playlistData){
+			if ($playlistData["object_id"] == $song->id){
+				$playlistTrack ="\t<playlisttrack>" . $playlistData["track"] . "</playlisttrack>\n";
+			}
+		}
+	    }
+
             $tag_string = self::tags_string(Tag::get_top_tags('song', $song_id));
             $rating = new Rating($song_id, 'song');
             $art_url = Art::url($song->album, 'album', $_REQUEST['auth']);

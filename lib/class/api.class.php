@@ -620,7 +620,7 @@ class Api
         $songs = array();
         foreach ($items as $object) {
             if ($object['object_type'] == 'song') {
-                $songs[] = $object['object_id'];
+                $songs[] =  $object['object_id'];
             }
         } // end foreach
 
