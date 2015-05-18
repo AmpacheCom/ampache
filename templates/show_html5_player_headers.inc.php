@@ -236,6 +236,11 @@ function SavePlaylist()
     handlePlaylistAction(url, 'rb_append_dplaylist_new');
 }
 
+function SaveToExistingPlaylist(event)
+{
+    showPlaylistDialog(event, 'song', jplaylist['playlist'][0]["media_id"]);
+}
+
 var audioContext = null;
 var mediaSource = null;
 var replaygainEnabled = false;
